@@ -2,10 +2,15 @@ import cv2, time, mediapipe as mp
 
 from features.shutdown import do_shutdown
 from features.volume import pinch_volume
+from features.mouse import do_jerry_mouse
+from features.screenshot import do_screenshot
+from features.zoom import do_zoom
 from utils.common import (ENABLED_VOLUME_FEATURE,
                           DEBUG_MODE,
                           ENABLED_SCREEN,
-                          ENABLED_SHUTDOWN_FEATURE)
+                          ENABLED_SHUTDOWN_FEATURE, ENABLED_MOUSE_MOVE_FEATURE, ENABLED_SCREENSHOT_FEATURE,
+                          ENABLED_ZOOM_FEATURE)
+from utils.hand_constants import PINKY_FINGER_TIP, INDEX_FINGER_TIP, MIDDLE_FINGER_TIP
 
 finger_count = 0
 
@@ -19,6 +24,7 @@ def start_system():
     last_volume_change_time = time.time()  # Track the last volume adjustment time
 
     while not get_out:
+        # time.sleep(1)
         _, frame = webcam.read()
         frame_height, frame_width, _ = frame.shape
         frame = cv2.flip(frame, 1)
@@ -27,6 +33,10 @@ def start_system():
 
         hands = output.multi_hand_landmarks
         handedness = output.multi_handedness  # Get the handedness (left/right) info
+
+        left_hand_landmarks = None
+        right_hand_landmarks = None
+
 
         if hands and handedness:
             for (hand, hand_info) in zip(hands, handedness):
@@ -38,25 +48,42 @@ def start_system():
                 landmarks = hand.landmark
                 handLandmarks = []
 
+                x_index, y_index = 0, 0
+
                 for id, landmark in enumerate(landmarks):
                     x = int(landmark.x * frame_width)
                     y = int(landmark.y * frame_height)
                     handLandmarks.append([landmark.x, landmark.y])
 
                     if ENABLED_VOLUME_FEATURE:
-                        if "Right" == hand_label:
+                        if "Left" == hand_label:
                             last_volume_change_time, old_dist, x1, x2, y1, y2 = pinch_volume(frame, id, x, y, x1, x2, y1, y2, old_dist, last_volume_change_time)
 
-                """
-                handLandmarks[a][b]
-                - a = accesezi una dintre cele 21 de constante definite in utils.hand_constants
-                    deci poti avea acces la diferite componente din aratator, deget mare sau orice alt deget, + incheietura
-                - b = pozitionarea componentei "a" in fereastra
-                    0 = x
-                    1 = y 
-                """
+                    if ENABLED_MOUSE_MOVE_FEATURE:
+                        if "Right" == hand_label:
+                            if INDEX_FINGER_TIP == id:
+                                x_index, y_index = x, y
+                            if INDEX_FINGER_TIP == id:
+                                do_jerry_mouse(x_index, y_index, frame, handLandmarks)
+
+                    # Store landmarks based on hand label
+                    if hand_label == "Left":
+                        left_hand_landmarks = handLandmarks
+                    else:
+                        right_hand_landmarks = handLandmarks
+
+
+                if ENABLED_SCREENSHOT_FEATURE:
+                    if left_hand_landmarks and right_hand_landmarks:
+                        do_screenshot(left_hand_landmarks, right_hand_landmarks, frame)
+
+                if ENABLED_ZOOM_FEATURE:
+                    if left_hand_landmarks and right_hand_landmarks:
+                        do_zoom(left_hand_landmarks, right_hand_landmarks, frame);
+
                 if ENABLED_SHUTDOWN_FEATURE:
                     get_out = do_shutdown(handLandmarks)
+
 
 
         if ENABLED_SCREEN: cv2.imshow('Video', frame)
@@ -73,4 +100,3 @@ if __name__ == '__main__':
     print('PyCharm')
     start_system()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
