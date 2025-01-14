@@ -1,5 +1,6 @@
 import cv2, time, mediapipe as mp
 
+from features.play_pause import do_play_pause
 from features.shutdown import do_shutdown
 from features.volume import pinch_volume
 from features.mouse import do_jerry_mouse
@@ -9,7 +10,7 @@ from utils.common import (ENABLED_VOLUME_FEATURE,
                           DEBUG_MODE,
                           ENABLED_SCREEN,
                           ENABLED_SHUTDOWN_FEATURE, ENABLED_MOUSE_MOVE_FEATURE, ENABLED_SCREENSHOT_FEATURE,
-                          ENABLED_ZOOM_FEATURE)
+                          ENABLED_ZOOM_FEATURE, ENABLED_PLAY_PAUSE_FEATURE)
 from utils.hand_constants import PINKY_FINGER_TIP, INDEX_FINGER_TIP, MIDDLE_FINGER_TIP
 
 finger_count = 0
@@ -65,6 +66,11 @@ def start_system():
                                 x_index, y_index = x, y
                             if INDEX_FINGER_TIP == id:
                                 do_jerry_mouse(x_index, y_index, frame, handLandmarks)
+
+                    if ENABLED_PLAY_PAUSE_FEATURE:
+                        if "Right" == hand_label:
+                            if PINKY_FINGER_TIP == id:
+                                do_play_pause(right_hand_landmarks)
 
                     # Store landmarks based on hand label
                     if hand_label == "Left":
