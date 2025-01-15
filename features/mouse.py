@@ -55,19 +55,19 @@ def mouse_interact(handLandmarks):
         print("[DEBUG] Left click")
         mouse.click(Button.left, 1)
 
-    print(dist2)
-    if dist2 < 0.045:
-        mouse.click(Button.left, 2)
-    else:
-        mouse.release(Button.left)
-        directory = subprocess.run(["pwd"], capture_output=True, text=True).stdout.strip()
-        selected_files = get_selected_files(directory)
-        selected_file = get_first_selected_file(directory)
-        if selected_file:
-            mouse.click(Button.left, 2)  # Double click to open file in Preview
-            time.sleep(0.5)
-        else:
-            print("[DEBUG] No file selected.")
+    # print(dist2)
+    # if dist2 < 0.045:
+    #     mouse.click(Button.left, 2)
+    # else:
+    #     mouse.release(Button.left)
+    #     directory = subprocess.run(["pwd"], capture_output=True, text=True).stdout.strip()
+    #     selected_files = get_selected_files(directory)
+    #     selected_file = get_first_selected_file(directory)
+    #     if selected_file:
+    #         mouse.click(Button.left, 2)  # Double click to open file in Preview
+    #         time.sleep(0.5)
+    #     else:
+    #         print("[DEBUG] No file selected.")
 
 def move_mouse(x, y, frame):
     # Read pointer position

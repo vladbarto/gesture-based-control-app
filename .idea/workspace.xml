@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f75f84a5-4a7f-4b20-a892-0315df60701d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/features/play_pause.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/mouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/mouse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshot.png" beforeDir="false" afterPath="$PROJECT_DIR$/screenshot.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/common.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +136,9 @@
       <workItem from="1736448401314" duration="2204000" />
       <workItem from="1736452209825" duration="1797000" />
       <workItem from="1736505015448" duration="3482000" />
-      <workItem from="1736801817110" duration="3811000" />
+      <workItem from="1736801817110" duration="5605000" />
+      <workItem from="1736936193664" duration="160000" />
+      <workItem from="1736936725386" duration="4739000" />
     </task>
     <servers />
   </component>
@@ -145,6 +147,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gesture_based_control_app$rapid.coverage" NAME="rapid Coverage Results" MODIFIED="1731447473475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/gesture_based_control_app$main.coverage" NAME="main Coverage Results" MODIFIED="1736843690914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gesture_based_control_app$main.coverage" NAME="main Coverage Results" MODIFIED="1736845014187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
